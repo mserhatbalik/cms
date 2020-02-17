@@ -1,2 +1,2 @@
-# cms
-Custom CMS system created using vanilla PHP
+# CMS
+Custom CMS system created using vanilla PHP, MySQL and Bootstrap
