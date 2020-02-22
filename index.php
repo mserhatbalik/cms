@@ -11,9 +11,10 @@
 
         <!-- Blog Entries Column -->
         <div class="col-md-8">
-
             <?php
-
+            ini_set('display_errors', 1);
+            ini_set('display_startup_errors', 1);
+            error_reporting(E_ALL);
             $query = "SELECT * FROM posts";
             $selectAllPostsQuery = mysqli_query($connection, $query);
             while ($row = mysqli_fetch_assoc($selectAllPostsQuery)) {
@@ -23,38 +24,43 @@
                 $post_date = $row['post_date'];
                 $post_image = $row['post_image'];
                 $post_content = substr($row['post_content'], 0, 100);
+                $post_status = $row['post_status'];
+                if ($post_status !== 'published') {
+                    echo "<h1 class='text-center'>NO POST SORRY </h1>";
+                } else {
 
-                ?>
+
+            ?>
 
 
-                <h1 class="page-header">
+                    <!-- <h1 class="page-header">
                     Page Heading
                     <small>Secondary Text</small>
-                </h1>
+                </h1> -->
 
-                <!-- First Blog Post -->
-                <h2>
-                    <a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title; ?></a>
-                </h2>
-                <p class="lead">
-                    by <a href="index.php"><?php echo $post_author; ?></a>
-                </p>
-                <p><span class="glyphicon glyphicon-time"></span> <?php echo $post_date; ?></p>
-                <hr>
+                    <!-- First Blog Post -->
+                    <h2>
+                        <a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title; ?></a>
+                    </h2>
+                    <p class="lead">
+                        by <a href="index.php"><?php echo $post_author; ?></a>
+                    </p>
+                    <p><span class="glyphicon glyphicon-time"></span> <?php echo $post_date; ?></p>
+                    <hr>
 
-                <!-- Image path belirtirken "." koymayı unutma path başında, yoksa apache gidip root folderda arıyor imageleri relative path yerine. -->
-                <img class="img-responsive" src="./images/<?php echo $post_image; ?>" alt="">
-                <hr>
-                <p><?php echo $post_content; ?></p>
-                <a class=" btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                    <!-- Image path belirtirken "." koymayı unutma path başında, yoksa apache gidip root folderda arıyor imageleri relative path yerine. -->
+                    <img class="img-responsive" src="./images/<?php echo $post_image; ?>" alt="">
+                    <hr>
+                    <p><?php echo $post_content; ?></p>
+                    <a class=" btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
 
-                <hr>
+                    <hr>
 
             <?php
 
+
+                }
             }
-
-
             ?>
 
 
