@@ -4,5 +4,16 @@ $(document).ready(function() {
     console.error(error);
   });
 
-  // THE REST
+  // View Posts Check ALL CHECKBOXES
+  $('#selectAllBoxes').click(function(event) {
+    if (this.checked) {
+      $('.checkBoxes').each(function() {
+        this.checked = true;
+      });
+    } else {
+      $('.checkBoxes').each(function() {
+        this.checked = false;
+      });
+    }
+  });
 });
