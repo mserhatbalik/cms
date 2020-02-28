@@ -41,7 +41,7 @@ if (isset($_POST['checkBoxArray'])) {
     </div>
     <div>
       <input type="submit" name="submit" class="btn btn-success" value="Apply">
-      <a class="btn btn-primary" href="add_post.php">Add New</a>
+      <a class="btn btn-primary" href="posts.php?source=add_post">Add New</a>
     </div>
     <thead>
       <tr>
@@ -83,7 +83,7 @@ if (isset($_POST['checkBoxArray'])) {
 
         echo "<td>{$post_id}</td>";
         echo "<td>{$post_author}</td>";
-        echo "<td>{$post_title}</td>";
+        echo "<td><a href='../post.php?p_id={$post_id}' target='_blank'>{$post_title}</a></td>";
 
         $query = "SELECT * FROM categories WHERE cat_id = {$post_category_id}";
         $selectCategoriesId = mysqli_query($connection, $query);
