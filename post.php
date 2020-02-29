@@ -16,41 +16,47 @@
 
             if (isset($_GET['p_id'])) {
                 $the_post_id = $_GET['p_id'];
-            }
 
-            $query = "SELECT * FROM posts WHERE post_id = $the_post_id ";
-            $selectAllPostsQuery = mysqli_query($connection, $query);
-            while ($row = mysqli_fetch_assoc($selectAllPostsQuery)) {
-                $post_title = $row['post_title'];
-                $post_author = $row['post_author'];
-                $post_date = $row['post_date'];
-                $post_image = $row['post_image'];
-                $post_content = $row['post_content'];
+                $view_query = "UPDATE posts SET post_views_count = post_views_count + 1 WHERE post_id = $the_post_id";
+                mysqli_query($connection, $view_query);
+
+
+                $query = "SELECT * FROM posts WHERE post_id = $the_post_id ";
+                $selectAllPostsQuery = mysqli_query($connection, $query);
+                while ($row = mysqli_fetch_assoc($selectAllPostsQuery)) {
+                    $post_title = $row['post_title'];
+                    $post_author = $row['post_author'];
+                    $post_date = $row['post_date'];
+                    $post_image = $row['post_image'];
+                    $post_content = $row['post_content'];
 
             ?>
 
 
 
 
-                <!-- First Blog Post -->
-                <h2>
-                    <a href="#"><?php echo $post_title; ?></a>
-                </h2>
-                <p class="lead">
-                    by <a href="index.php"><?php echo $post_author; ?></a>
-                </p>
-                <p><span class="glyphicon glyphicon-time"></span> <?php echo $post_date; ?></p>
-                <hr>
+                    <!-- First Blog Post -->
+                    <h2>
+                        <a href="#"><?php echo $post_title; ?></a>
+                    </h2>
+                    <p class="lead">
+                        by <a href="author_posts.php?author=<?php echo $post_author; ?>&p_id=<?php echo $the_post_id; ?>"><?php echo $post_author; ?></a>
+                    </p>
+                    <p><span class="glyphicon glyphicon-time"></span> <?php echo $post_date; ?></p>
+                    <hr>
 
-                <!-- Image path belirtirken "." koymayı unutma path başında, yoksa apache gidip root folderda arıyor imageleri relative path yerine. -->
-                <img class="img-responsive" src="./images/<?php echo $post_image; ?>" alt="">
-                <hr>
-                <p><?php echo $post_content; ?></p>
+                    <!-- Image path belirtirken "." koymayı unutma path başında, yoksa apache gidip root folderda arıyor imageleri relative path yerine. -->
+                    <img class="img-responsive" src="./images/<?php echo $post_image; ?>" alt="">
+                    <hr>
+                    <p><?php echo $post_content; ?></p>
 
-                <hr>
+                    <hr>
 
             <?php
 
+                }
+            } else {
+                header("Location: index.php");
             }
 
             ?>
